@@ -2,7 +2,7 @@
 
 Taking Washington County's public property tax information from individual PDFs for each taxlot into a single table.
 
-*Note*: Use *pyinstrument -r html [filename].py* to profile code
+*Note*: Use `pyinstrument -r html [filename].py` to profile code
 
 **To-Do:**
 - A lot, lol.
