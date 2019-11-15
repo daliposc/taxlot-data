@@ -8,7 +8,6 @@ import pandas as ps
 import numpy
 import urllib.request
 import urllib.error
-import sys
 
 # Remove leading zeroes in Metro R-Number to match Wash Co formatting
 # e.g. R0090737 -> R90737
@@ -56,6 +55,7 @@ def csv_to_formatted_df(uri):
         parcel_url_column.append("https://mtbachelor.co.washington.or.us/Tax2Web/2019-2020/{}.pdf".format(fix_parcel_num(row['parcel'])))
     df['parcel_url'] = parcel_url_column
     return df
+
 
 df = csv_to_formatted_df("data/taxlots_hillsboro_sql_table_export.csv")
 no_num, not_found, downloaded = get_n_pdfs(10, df)
