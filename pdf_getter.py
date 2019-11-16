@@ -4,10 +4,9 @@
 # except: taxlot id webpage, download R-number.pdf
 #   - http://gisims.co.washington.or.us/GIS/index.cfm?id=30&sid=3&IDValue=[tlid]
 
-import pandas as ps
+import pandas as pd
 import numpy
-import urllib.request
-import urllib.error
+import requests
 
 ## Remove leading zeroes in Metro R-Number to match Wash Co formatting
 # e.g. R0090737 -> R90737
@@ -23,7 +22,7 @@ def fix_parcel_num(parcel):
 
 ## Convert CSV to pandas dataframe and add parcel_url column
 def csv_to_formatted_df(uri):
-    df = ps.read_csv(uri)
+    df = pd.read_csv(uri)
     parcel_url_column = []
     for index, row in df.iterrows():
         parcel_url_column.append("https://mtbachelor.co.washington.or.us/Tax2Web/2019-2020/{}.pdf".format(fix_parcel_num(row['parcel'])))
@@ -42,7 +41,7 @@ def get_n_pdfs(n, df):
         try:
             if type(df.loc[i].parcel) is str:
                 print(df.loc[i].parcel_url)
-                response = urllib.request.urlopen(df.loc[i].parcel_url)
+                response = requests.get(df.loc[i].parcel_url)
                 with open("pdf/{}.pdf".format(df.loc[i].parcel), mode='wb') as pdf:
                     pdf.write(response.read())
                 downloaded.append(df.loc[i].parcel)
