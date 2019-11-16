@@ -9,7 +9,7 @@ import numpy
 import urllib.request
 import urllib.error
 
-# Remove leading zeroes in Metro R-Number to match Wash Co formatting
+## Remove leading zeroes in Metro R-Number to match Wash Co formatting
 # e.g. R0090737 -> R90737
 def fix_parcel_num(parcel):
     if type(parcel) is str:
@@ -21,7 +21,16 @@ def fix_parcel_num(parcel):
         parcel='NaN'
     return parcel
 
-# Download n number of property tax pdfs from Wash Co
+## Convert CSV to pandas dataframe and add parcel_url column
+def csv_to_formatted_df(uri):
+    df = ps.read_csv(uri)
+    parcel_url_column = []
+    for index, row in df.iterrows():
+        parcel_url_column.append("https://mtbachelor.co.washington.or.us/Tax2Web/2019-2020/{}.pdf".format(fix_parcel_num(row['parcel'])))
+    df['parcel_url'] = parcel_url_column
+    return df
+
+## Download n number of property tax pdfs from Wash Co
 # Returns 3 lists: no_num (tlid), not_found (parcel), downloaded (parcel)  
 def get_n_pdfs(n, df):
     no_num = []
@@ -47,14 +56,6 @@ def get_n_pdfs(n, df):
             print(e)
         i += 1
     return no_num, not_found, downloaded
-
-def csv_to_formatted_df(uri):
-    df = ps.read_csv(uri)
-    parcel_url_column = []
-    for index, row in df.iterrows():
-        parcel_url_column.append("https://mtbachelor.co.washington.or.us/Tax2Web/2019-2020/{}.pdf".format(fix_parcel_num(row['parcel'])))
-    df['parcel_url'] = parcel_url_column
-    return df
 
 if __name__ == '__main__':
     df = csv_to_formatted_df("data/taxlots_hillsboro_sql_table_export.csv")
