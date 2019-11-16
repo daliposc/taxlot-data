@@ -1,3 +1,4 @@
+## Scrapes the Wash Co site for taxlot data, stores to Pandas dataframe
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
