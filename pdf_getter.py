@@ -6,7 +6,8 @@
 
 import pandas as pd
 import numpy
-import requests
+import urllib.request
+import urllib.error
 
 ## Remove leading zeroes in Metro R-Number to match Wash Co formatting
 # e.g. R0090737 -> R90737
