@@ -56,7 +56,7 @@ def csv_to_formatted_df(uri):
     df['parcel_url'] = parcel_url_column
     return df
 
-
-df = csv_to_formatted_df("data/taxlots_hillsboro_sql_table_export.csv")
-no_num, not_found, downloaded = get_n_pdfs(10, df)
-print("No parcel number: ", len(no_num),"\nHTTP 404: ", len(not_found), "\nDownloaded: ", len(downloaded))
+if __name__ == '__main__':
+    df = csv_to_formatted_df("data/taxlots_hillsboro_sql_table_export.csv")
+    no_parcel_num, parcels_not_found, downloaded = get_n_pdfs(10, df)
+    print("No parcel number: ", len(no_parcel_num),"\nHTTP 404: ", len(parcels_not_found), "\nDownloaded: ", len(downloaded))
