@@ -42,7 +42,7 @@ def get_n_pdfs(n, df):
         try:
             if type(df.loc[i].parcel) is str:
                 print(df.loc[i].parcel_url)
-                response = requests.get(df.loc[i].parcel_url)
+                response = urllib.request.urlopen(df.loc[i].parcel_url)
                 with open("pdf/{}.pdf".format(df.loc[i].parcel), mode='wb') as pdf:
                     pdf.write(response.read())
                 downloaded.append(df.loc[i].parcel)
