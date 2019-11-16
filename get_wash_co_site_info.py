@@ -27,9 +27,9 @@ def parse_html(html):
 
 def get_webpage(tlid):
     response = requests.get(TLID_URL.format(tlid))
-    with open("page.html", 'w') as f:
-        f.write(response.text)
-    return parse_html(open("page.html", 'r'))
+    # with open("page.html", 'w') as f:
+    #     f.write(response.text)
+    return parse_html(response)
 
 def main():
     df = pd.read_csv("data/taxlots_hillsboro_sql_table_export.csv")
