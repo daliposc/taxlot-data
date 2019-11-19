@@ -57,7 +57,11 @@ def get_n_pdfs(n, df):
         i += 1
     return no_num, not_found, downloaded
 
-if __name__ == '__main__':
+def main():
     df = csv_to_formatted_df("data/taxlots_hillsboro_sql_table_export.csv")
     no_parcel_num, parcels_not_found, downloaded = get_n_pdfs(10, df)
     print("No parcel number: ", len(no_parcel_num),"\nHTTP 404: ", len(parcels_not_found), "\nDownloaded: ", len(downloaded))
+
+if __name__ == '__main__':
+    main()
+
