@@ -2,12 +2,11 @@
 
 Taking Washington County's public property tax information from individual PDFs for each taxlot into a single table.
 
-*Note*: Use `pyinstrument -r html [filename].py` to profile code
+The process:
+1. Get taxlot information from tables on teh washington county website
+2. Open property tax statement pdfs
+3. Convert pdf to an image and crop it
+4. Use tessesract for character recognition
+5. Add data to a dataframe
 
-**To-Do:**
-- A lot, lol.
-- But really, uhm...
-- Crop PDFs before extracting text
-- Parse image_to_string text files, convert to dataframe
-- Impliment multi-threading for tesseract operations
-- Figure out the fastest way to download and analyze at the same time (Blocks of 10? All PDFs, then all images? Etc.)
+*Note*: Use `pyinstrument -r html [filename].py` to profile code
